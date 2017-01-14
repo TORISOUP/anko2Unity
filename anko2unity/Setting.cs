@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using anko2unity;
+using ankoPlugin2;
 
 namespace anko2Sample
 {
     internal partial class Setting : Form
     {
 
-        private readonly ankoPlugin2.IPluginHost host;
+        private readonly IPluginHost host;
 
         private Config config;
 
@@ -25,7 +20,7 @@ namespace anko2Sample
 
         public int Port => _currentPortNum;
 
-        public Setting(ankoPlugin2.IPluginHost host)
+        public Setting(IPluginHost host)
         {
             InitializeComponent();
 
@@ -59,7 +54,7 @@ namespace anko2Sample
             }
         }
 
-        void host_ReceiveContentStatus(object sender, ankoPlugin2.ReceiveContentStatusEventArgs e)
+        void host_ReceiveContentStatus(object sender, ReceiveContentStatusEventArgs e)
         {
             if (e.Status.archive == 1)
             {
@@ -71,7 +66,7 @@ namespace anko2Sample
 
         }
 
-        void host_ConnectedServer(object sender, ankoPlugin2.ReceiveContentStatusEventArgs e)
+        void host_ConnectedServer(object sender, ReceiveContentStatusEventArgs e)
         {
             if (e.Status.archive == 1)
             {
@@ -83,13 +78,13 @@ namespace anko2Sample
 
         }
 
-        void host_DisconnectedServer(object sender, ankoPlugin2.ConnectStreamEventArgs e)
+        void host_DisconnectedServer(object sender, ConnectStreamEventArgs e)
         {
             // 生放送の切断
 
         }
 
-        void host_ReceiveChat(object sender, ankoPlugin2.ReceiveChatEventArgs e)
+        void host_ReceiveChat(object sender, ReceiveChatEventArgs e)
         {
             // コメント取得
 

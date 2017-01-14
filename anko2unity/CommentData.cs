@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
 using ankoPlugin2;
 
 namespace anko2unity
@@ -40,6 +36,13 @@ namespace anko2unity
         /// </summary>
         [DataMember]
         public string Name;
+
+        /// <summary>
+        /// コメビュによって命名される名前
+        /// </summary>
+        [DataMember]
+        public string NickName;
+
         /// <summary>
         /// コメント
         /// 
@@ -88,7 +91,7 @@ namespace anko2unity
 
         DataContractJsonSerializer jsonSerializer;
 
-        public CommentData(IChat chat)
+        public CommentData(IChat chat, IUserInfo user)
         {
             jsonSerializer = new DataContractJsonSerializer(typeof(CommentData));
 
@@ -97,12 +100,13 @@ namespace anko2unity
             this.Locale = chat.locale;
             this.Mail = chat.Mail;
             this.Message = chat.Message;
-            this.Name = chat.Name;
+            this.Name = user.DisplayName;
             this.No = chat.No;
             this.Premium = chat.Premium;
             this.Thread = chat.Thread;
             this.UserId = chat.UserId;
             this.Vpos = chat.Vpos;
+            this.NickName = user.CharaName;
         }
 
         public string ToJson()

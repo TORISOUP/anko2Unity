@@ -27,7 +27,7 @@ namespace anko2unity
 
             host.ReceiveChat += (o, args) =>
             {
-                var json = new CommentData(args.Chat).ToJson();
+                var json = new CommentData(args.Chat,args.Chat.userinfo).ToJson();
                 if (tcpSender != null && tcpSender.IsRunning)
                 {
                     tcpSender.SendToAll(json);
